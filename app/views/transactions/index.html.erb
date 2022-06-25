@@ -1,1 +1,13 @@
-<%= pie_chart Transaction.group(:state).count %>
+
+<%= form_with url: root_path, class: "d-flex align-items-center me-auto", method: :get do |f| %>
+  <div class='form-group'>
+    <%= f.select :state, @state_select, { selected: params[:state] }, { value: params[:state].to_s, class: 'form-control', onchange: 'this.form.submit();' } %>
+    <%= f.select :year, @year_select, { selected: params[:year] }, { value: params[:year].to_s, class: 'form-control', onchange: 'this.form.submit();' } %>
+  </div>
+<% end %>
+
+<h2>Revenue:<%= @revenue %></h2>
+<h2>Revenue/order:<%= @revenue_per_order %></h2>
+<h2>Customers:<%= @customers_count %></h2>
+
+<%= column_chart @transactions.group_by_month(:order_date, format: "%b %Y").sum(:sales) %>
