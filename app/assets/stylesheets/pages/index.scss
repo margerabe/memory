@@ -1,0 +1,50 @@
+body {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.title { 
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 40px;
+}
+
+.form {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.form-group {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.form-label {
+  text-align: left;
+  margin-top: auto;
+  width: 130px;
+}
+
+.form-control {
+  width: 250px;
+  text-align: center;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.card {
+  width: 260px;
+  height: 130px;
+  justify-content: center;
+  background-color: #F4F4F4;
+  border-width: 2px;
+}
+
+.chart {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
