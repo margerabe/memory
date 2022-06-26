@@ -1,8 +1,7 @@
 class TransactionsController < ApplicationController
   def index
     @state_select = Transaction.distinct.pluck(:state).sort
-    @year_select = ActiveRecord::Base.connection.execute(sql_years).values.flatten.compact!.sort
-    
+    @year_select = ActiveRecord::Base.connection.execute(sql_years).values.flatten.compact.sort
     @transactions = Transaction.where(state: params[:state]).where('extract(year from order_date) = ?', params[:year])
     
     @revenue = revenue
