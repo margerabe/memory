@@ -22,18 +22,41 @@
 
     <div class="card-container">
       <div class="card">
-        <p><em>Revenue</em></p>
-        <b><%= @revenue %></b>
+        <p><em>Total Revenue</em></p>
+        <b>
+          <% if @revenue != 0 %>
+            <%= "kUSD #{number_with_delimiter(@revenue, delimiter: ',')}" %>
+          <% else %>
+            "-"
+          <% end %>
+        </b>
       </div>
+
       <div class="card">
-        <p><em>Revenue/order</em></p>
-        <b><%= @revenue_per_order %></b>
+        <p><em>Avg. Revenue/Order</em></p>
+        <b>
+          <% if @revenue != 0 %>
+            <%= "kUSD #{number_with_delimiter(@revenue/@distinct_orders, delimiter: ',')}" %>
+          <% else %>
+            "-"
+          <% end %>
+        </b>
       </div>
+
       <div class="card">
-        <p><em>Customers</em></p>
-        <b><%= @customers %></b>
+        <p><em>Unique Customers</em></p>
+        <b>
+          <% if @revenue != 0 %>
+            <%= @distinct_customers %>
+          <% else %>
+            "-"
+          <% end %>
+        </b>
       </div>
+
     </div>
+
+    <p class="chart-title">Monthly revenue in  kUSD</h3>
 
     <div class="chart">
       <%= column_chart @transactions.group_by_month(:order_date, format: "%b").sum(:sales) %>

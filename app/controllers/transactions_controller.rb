@@ -6,8 +6,8 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.where(state: params[:state]).where('extract(year from order_date) = ?', params[:year])
     
     @revenue = revenue
-    @revenue_per_order = revenue_per_order
-    @customers = customers
+    @distinct_orders = @transactions.count("DISTINCT order_id").round
+    @distinct_customers = @transactions.count("DISTINCT customer_id")
   end
   
   private
@@ -17,15 +17,6 @@ class TransactionsController < ApplicationController
   end
 
   def revenue
-    @revenue_amount = @transactions.sum(&:sales).round
-    @revenue_amount != 0 ? "EUR #{@revenue_amount}" : "-"
-  end
-
-  def revenue_per_order
-    @revenue_amount != 0 ? "EUR #{(@revenue_amount / @transactions.count("DISTINCT order_id")).round}" : "-"
-  end
-
-  def customers
-    @revenue_amount != 0 ? @transactions.count("DISTINCT customer_id") : "-"
+    @transactions.sum(&:sales).round
   end
 end

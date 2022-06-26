@@ -33,7 +33,7 @@ body {
   display: flex;
   justify-content: space-between;
   margin-top: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .card {
@@ -45,6 +45,10 @@ body {
 }
 
 .chart {
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 40px;
+}
+
+.chart-title {
+  text-align: left;
 }
