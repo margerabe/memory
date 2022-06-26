@@ -5,7 +5,6 @@ FactoryBot.define do
     ship_date     { Faker::Date.between(from: '2015-01-01', to: '2015-12-31') }
     customer_id   { Faker::Internet.uuid }
     state         { "California" }
-    # state         { Faker::Address.state }
     region        { ["North", "West", "East", "South"].sample }
     product_id    { Faker::Internet.uuid }
     sales         { Faker::Number.decimal(l_digits: 3, r_digits: 2) }
