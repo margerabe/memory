@@ -15,6 +15,8 @@ describe TransactionsController, type: :controller do
     
     before do
       create_list(:transaction, 100)
+      create(:transaction, state: 'California', order_date: Faker::Date.between(from: '2015-01-01', to: '2015-12-31'))
+
       get :index, params: params
     end
 
