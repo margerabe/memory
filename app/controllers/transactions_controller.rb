@@ -1,21 +1,18 @@
 class TransactionsController < ApplicationController
   def index
-    @state_select = Transaction.distinct.pluck(:state).sort
-    @year_select = ActiveRecord::Base.connection.execute(sql_years).values.flatten.compact.sort
-    @transactions = Transaction.where(state: params[:state]).where('extract(year from order_date) = ?', params[:year])
+    @state_select = StateSelect.new.call
+    @year_select = YearSelect.new.call
+    @transactions = BuildTransactions.new(state: params[:state], year: params[:year]).call
 
     @revenue = revenue
-    @distinct_orders = @transactions.count("DISTINCT order_id").round
-    @distinct_customers = @transactions.count("DISTINCT customer_id")
+    @distinct_orders = CountDistinct.new(collection: @transactions, column: "order_id").call.round
+    @average_order_per_revenue = @revenue / @distinct_orders if @distinct_orders != 0
+    @distinct_customers = CountDistinct.new(collection: @transactions, column: "customer_id").call
   end
 
   private
 
-  def sql_years
-    "SELECT DISTINCT EXTRACT(YEAR FROM order_date)::Integer from TRANSACTIONS"
-  end
-
   def revenue
-    @transactions.sum(&:sales).round
+    @transactions.sum(:sales).round
   end
 end

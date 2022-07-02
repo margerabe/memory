@@ -24,7 +24,7 @@
       <div class="card">
         <p><em>Total Revenue</em></p>
         <b>
-          <% if @revenue != 0 %>
+          <% if @distinct_orders != 0 %>
             <%= "kUSD #{number_with_delimiter(@revenue, delimiter: ',')}" %>
           <% else %>
             "-"
@@ -35,8 +35,8 @@
       <div class="card">
         <p><em>Avg. Revenue/Order</em></p>
         <b>
-          <% if @revenue != 0 %>
-            <%= "kUSD #{number_with_delimiter(@revenue/@distinct_orders, delimiter: ',')}" %>
+          <% if @distinct_orders != 0 %>
+            <%= "kUSD #{number_with_delimiter(@average_order_per_revenue, delimiter: ',')}" %>
           <% else %>
             "-"
           <% end %>
@@ -46,7 +46,7 @@
       <div class="card">
         <p><em>Unique Customers</em></p>
         <b>
-          <% if @revenue != 0 %>
+          <% if @distinct_orders != 0 %>
             <%= @distinct_customers %>
           <% else %>
             "-"
